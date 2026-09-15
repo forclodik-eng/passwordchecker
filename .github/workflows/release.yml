@@ -1,0 +1,60 @@
+name: Build & Release APK
+
+on:
+  release:
+    types: [published, created]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Tag name for release (optional, e.g. v1.0.0)'
+        required: false
+        default: 'v1.0.0'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Prepare APK Artifacts
+        run: |
+          mkdir -p release-artifacts
+          cp app/build/outputs/apk/debug/app-debug.apk release-artifacts/password-auditor.apk
+          cp app/build/outputs/apk/debug/app-debug.apk release-artifacts/password-auditor-debug.apk
+
+      - name: Upload APK to Workflow Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: password-auditor-apk
+          path: release-artifacts/password-auditor.apk
+
+      - name: Upload APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
+        with:
+          files: |
+            release-artifacts/password-auditor.apk
+            release-artifacts/password-auditor-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
