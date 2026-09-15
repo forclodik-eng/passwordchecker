@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Password Auditor</string>
+    <string name="screen_title">Аудит стойкости пароля</string>
+    <string name="subtitle">Симуляция методов взлома и расчет надежности</string>
+    <string name="password_input_label">Введите пароль для проверки</string>
+    <string name="password_input_placeholder">Например: P@ssw0rd2024!</string>
+    <string name="run_audit_button">Запустить тест взлома</string>
+    <string name="stop_audit_button">Остановить симуляцию</string>
+    <string name="score_title">Рейтинг защищенности</string>
+    <string name="brute_force_title">Параллельный перебор (Brute Force)</string>
+    <string name="smart_attack_title">Интеллектуальные методы подбора</string>
+    <string name="recommendations_title">Рекомендации по улучшению</string>
+    <string name="generator_title">Генератор надежных вариантов</string>
+    <string name="copied_to_clipboard">Пароль скопирован в буфер обмена</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "Password Auditor",
+  "description": "Оценка стойкости пароля с симуляцией атак от простых к сложным, параллельным брутфорсом, оценкой по шкале 10.0, рекомендациями и генератором надежных паролей.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
